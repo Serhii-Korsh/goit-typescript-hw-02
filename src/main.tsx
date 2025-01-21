@@ -4,11 +4,17 @@ import "modern-normalize";
 import App from "./components/App.jsx";
 import "./index.css";
 
-ReactDOM.createRoot(document.getElementById("root")).render(
+ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
-    <App />
+        <App /> {" "}
   </React.StrictMode>
 );
+
+// ReactDOM.createRoot(document.getElementById("root")).render(
+//   <React.StrictMode>
+//     <App />
+//   </React.StrictMode>
+// );
 
 // import { StrictMode } from "react";
 // import { createRoot } from "react-dom/client";
