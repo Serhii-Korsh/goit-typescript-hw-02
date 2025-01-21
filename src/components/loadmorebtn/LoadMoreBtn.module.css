@@ -1,0 +1,9 @@
+.btn {
+  background-color: rgb(211, 209, 209);
+  transition: background-color 0.5s ease 0s;
+}
+
+.btn:hover,
+.btn:focus {
+  background-color: rgb(165, 159, 159);
+}

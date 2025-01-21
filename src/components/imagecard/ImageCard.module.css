@@ -1,0 +1,28 @@
+.box {
+  width: 300px;
+  height: 210px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-size: cover;
+}
+
+.img {
+  max-width: auto;
+  height: auto;
+  display: block;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.3s ease 0s;
+  overflow: hidden;
+  background-size: cover;
+}
+
+.img:focus,
+.img:hover {
+  transform: scale(1.04);
+}
