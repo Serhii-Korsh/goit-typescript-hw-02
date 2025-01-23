@@ -1,10 +1,16 @@
-import "react";
+import React from "react";
 import Modal from "react-modal";
 import s from "./ImageModal.module.css";
+import { Image } from "../types";
 
 Modal.setAppElement("#root");
 
-const ImageModal = ({ image, onClose }) => (
+interface ImageModalProps {
+  image: Image;
+  onClose: () => void;
+}
+
+const ImageModal: React.FC<ImageModalProps> = ({ image, onClose }) => (
   <Modal
     isOpen={true}
     onRequestClose={onClose}
@@ -20,7 +26,7 @@ const ImageModal = ({ image, onClose }) => (
       <div className={s.info}>
         <p className={s.p}>
           <b>Author:</b>
-          {image.user.first_name} <p>{image.user.last_name}</p>
+          {image.user.first_name} <span>{image.user.last_name}</span>
         </p>
         <p className={s.p}>
           <b>Likes:</b>

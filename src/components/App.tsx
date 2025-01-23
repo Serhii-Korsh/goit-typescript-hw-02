@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import SearchBar from "./searchbar/SearchBar";
 import ImageGallery from "./imagegallery/ImageGallery";
@@ -8,17 +8,28 @@ import LoadMoreBtn from "./loadmorebtn/LoadMoreBtn";
 import ImageModal from "./imagemodal/ImageModal";
 import toast, { Toaster } from "react-hot-toast";
 import s from "./App.module.css";
+import { Image } from "./types";
+
+interface AppState {
+  images: Image[];
+  query: string;
+  page: number;
+  loading: boolean;
+  error: string | null;
+  showModal: boolean;
+  modalImage: Image | null;
+}
 
 const ACCESS_KEY = "_n-WbaYYa46dr_uXsPI1IKic8i9afKM0-wnW4vh-ACg";
 
-const App = () => {
-  const [images, setImages] = useState([]);
-  const [query, setQuery] = useState("");
-  const [page, setPage] = useState(1);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const [showModal, setShowModal] = useState(false);
-  const [modalImage, setModalImage] = useState(null);
+const App: React.FC = () => {
+  const [images, setImages] = useState<Image[]>([]);
+  const [query, setQuery] = useState<string>("");
+  const [page, setPage] = useState<number>(1);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
+  const [showModal, setShowModal] = useState<boolean>(false);
+  const [modalImage, setModalImage] = useState<Image | null>(null);
 
   useEffect(() => {
     if (query) {
@@ -38,13 +49,13 @@ const App = () => {
       );
       setImages((prevImages) => [...prevImages, ...response.data.results]);
       setError(null);
-    } catch (error) {
-      setError(`Could not fetch images. Try again later.${error.message}`);
+    } catch (error: any) {
+      setError(`Could not fetch images. Try again later. ${error.message}`);
     }
     setLoading(false);
   };
 
-  const handleSearchSubmit = (inputQuery) => {
+  const handleSearchSubmit = (inputQuery: string) => {
     if (!inputQuery.trim()) {
       toast.error("Please enter a search term!");
       return;
@@ -57,7 +68,7 @@ const App = () => {
 
   const loadMoreImages = () => setPage((prevPage) => prevPage + 1);
 
-  const openModal = (image) => {
+  const openModal = (image: Image) => {
     setModalImage(image);
     setShowModal(true);
   };
@@ -74,7 +85,9 @@ const App = () => {
       {images.length > 0 && !loading && (
         <LoadMoreBtn onClick={loadMoreImages} />
       )}
-      {showModal && <ImageModal image={modalImage} onClose={closeModal} />}
+      {showModal && modalImage && (
+        <ImageModal image={modalImage} onClose={closeModal} />
+      )}
     </div>
   );
 };
